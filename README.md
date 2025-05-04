@@ -1,4 +1,4 @@
-### VSCodeCppIDE_Template
+### Lazy Template for VSCode (C++)
 Template of C++ project with config to make a VSCode be IDE-like with set of useful features for simplier development life.<br/>
 
 ### Features
