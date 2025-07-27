@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "lldb",
+            "type": "cuda-gdb",
             "request": "launch",
             "name": "Debug C++ Project",
             "program": "${command:cmake.launchTargetPath}",
@@ -14,7 +14,7 @@
             "preLaunchTask": "$(package) C++ Project: Build",
         },
         {
-            "type": "lldb",
+            "type": "cuda-gdb",
             "request": "launch",
             "name": "Debug Current C++ File",
             "program": "${config:CppRunCurrentFile.build_directory}/${fileBasenameNoExtension}",

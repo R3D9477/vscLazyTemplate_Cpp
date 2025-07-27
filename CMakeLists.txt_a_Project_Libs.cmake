@@ -8,4 +8,4 @@ add_subdirectory("lib/libzexample")
 #------------------------------------------------------------------------------------------------------
 # Add Boost if required
 
-target_add_boost(${MAIN_TARGET})
+#target_add_boost(${MAIN_TARGET})

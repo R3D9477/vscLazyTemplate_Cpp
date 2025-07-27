@@ -1,0 +1,10 @@
+[
+    {
+        "name": "NVIDIA",
+        "compilers": {
+            "C": "/usr/bin/nvcc",
+            "CXX": "/usr/bin/nvcc"
+        },
+        "isTrusted": true
+    }
+]

@@ -3,12 +3,13 @@
 {
     "name": "${localWorkspaceFolderBasename}",
     "service": "build",
-    "dockerComposeFile": "./docker-compose.user_debian_clang-19.yaml",
+    "dockerComposeFile": "./docker-compose.user_ubuntu_cuda.yaml",
     "workspaceFolder": "/home/build/cppproject",
     "remoteUser": "build",
     "customizations": {
         "vscode": {
             "extensions": [
+                "NVIDIA.nsight-vscode-edition",
                 "ms-vscode-remote.remote-containers",
                 "ms-vscode.cpptools-extension-pack",
                 "xaver.clang-format",

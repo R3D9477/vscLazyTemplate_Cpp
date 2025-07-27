@@ -2,7 +2,7 @@ x-setup: &setup
   image: cpp-dev
   build:
     context: ..
-    dockerfile: ./.devcontainer/Dockerfile_debian_clang-19
+    dockerfile: ./.devcontainer/Dockerfile_ubuntu_cuda
   stdin_open: true
   tty: true
   network_mode: host
@@ -40,3 +40,11 @@ services:
       - $HOME/.vcpkg:/home/build/.vcpkg
     devices:
       - /dev/dri:/dev/dri
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

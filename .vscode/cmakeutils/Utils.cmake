@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------------------------------
 # Scan project's sources folders.
 
-set(SOURCE_MASK *.c *.cc *.cpp *.cxx *.c++ *.h *.hh *.hpp *.hxx *.h++ *.tcc *.tpp *.ipp *.qrc)
+set(SOURCE_MASK *.cu *.h *.hh *.hpp *.hxx *.h++)
 
 function(get_sources_from_dir DEST_SRCs_VAR DEST_INCs_VAR SRC_DIR)
     unset(DIR_SRCs_FOUND)
@@ -56,7 +56,7 @@ endfunction()
 
 enable_testing()
 
-set(SOURCE_MASK_TEST *.c *.cc *.cpp *.cxx *.c++)
+set(SOURCE_MASK_TEST *.cu)
 
 function(target_add_tests_from_folder TARGET_NAME FOLDER_PATH)
     set(CMAKE_CXX_FLAGS "--coverage")

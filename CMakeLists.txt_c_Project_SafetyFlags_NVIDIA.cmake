@@ -1,6 +1,2 @@
-# Safety flags for MSVC.
+# Safety flags for NVIDIA nvcc.
 # Some of the safety flags may request certain optimization level.
-
-list(APPEND SAFETY_FLAGS
-
-)
