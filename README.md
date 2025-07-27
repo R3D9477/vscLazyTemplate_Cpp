@@ -1,6 +1,10 @@
 ### Lazy Template for VSCode (C++)
 Template of C++ project with config to make a VSCode be IDE-like with set of useful features for simplier development life.<br/>
 
+### Adoptations
+* [for Nvidia CUDA](https://github.com/R3D9477/vscLazyTemplate_Cpp/tree/CUDA)
+* [for Qt6](https://github.com/R3D9477/vscLazyTemplate_Cpp/tree/Qt6)
+
 ### Features
 * configured to run as on host, as inside [Docker](.devcontainer/Dockerfile_debian_clang-19)
 * uses `CMake` to manage the project
