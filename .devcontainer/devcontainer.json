@@ -12,7 +12,7 @@
                 "NVIDIA.nsight-vscode-edition",
                 "ms-vscode-remote.remote-containers",
                 "ms-vscode.cpptools-extension-pack",
-                "xaver.clang-format",
+                //"xaver.clang-format",
                 "ryuta46.multi-command",
                 "vadimcn.vscode-lldb",
                 "fredericbonnet.cmake-test-adapter",
