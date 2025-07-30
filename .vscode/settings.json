@@ -383,8 +383,8 @@
         "cpp_compiler_arg_optimization_level": "-G",
         "build_directory": "${workspaceFolder}/build/CppRunCurrentFile"
     },
-    "NsightNcuMetrics": [
-        "gpu__time_active,sm__inst_executed,l1tex__t_sector_hit_rate.pct"
-    ],
+    "NsightNcuMetrics": {
+        "report1": "gpu__time_active,sm__inst_executed,l1tex__t_sector_hit_rate.pct"
+    },
     "git.ignoreLimitWarning": true
 }

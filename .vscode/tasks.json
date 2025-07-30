@@ -94,7 +94,7 @@
             "linux": {
                 "args": [
                     "${workspaceFolder}/.vscode/nsighutils/generate_ncu_csv_report.py",
-                    "${config:NsightNcuMetrics}",
+                    "${config:NsightNcuMetrics.report1}",
                     "${command:cmake.launchTargetPath}"
                 ],
             },
@@ -114,7 +114,7 @@
             "linux": {
                 "args": [
                     "${workspaceFolder}/.vscode/nsighutils/generate_ncu_csv_report.py",
-                    "${config:NsightNcuMetrics}",
+                    "${config:NsightNcuMetrics.report1}",
                     "${config:CppRunCurrentFile.build_directory}/${fileBasenameNoExtension}"
                 ],
             },
