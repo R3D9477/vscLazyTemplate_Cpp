@@ -86,6 +86,46 @@
             ]
         },
         {
+            "label": "$(report) Nsight: Show Profiling Report (Current Project)",
+            "command": "python3",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "linux": {
+                "args": [
+                    "${workspaceFolder}/.vscode/nsighutils/generate_ncu_csv_report.py",
+                    "${config:NsightNcuMetrics}",
+                    "${command:cmake.launchTargetPath}"
+                ],
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": [
+                    "absolute"
+                ]
+            }
+        },
+        {
+            "label": "$(report) Nsight: Show Profiling Report (Current File)",
+            "command": "python3",
+            "options": {
+                "cwd": "${config:CppRunCurrentFile.build_directory}"
+            },
+            "linux": {
+                "args": [
+                    "${workspaceFolder}/.vscode/nsighutils/generate_ncu_csv_report.py",
+                    "${config:NsightNcuMetrics}",
+                    "${config:CppRunCurrentFile.build_directory}/${fileBasenameNoExtension}"
+                ],
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": [
+                    "absolute"
+                ]
+            }
+        },
+        {
             "label": "$(report) Valgrind: Show Cachegrind Report",
             "problemMatcher": {
                 "base": "$gcc",

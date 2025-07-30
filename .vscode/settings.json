@@ -194,6 +194,24 @@
             ]
         },
         {
+            "command": "multiCommand.run_task_CMake_ShowNsightProfilingReport_CurrentProject",
+            "sequence": [
+                {
+                    "command": "workbench.action.tasks.runTask",
+                    "args": "$(report) Nsight: Show Profiling Report (Current Project)"
+                }
+            ]
+        },
+        {
+            "command": "multiCommand.run_task_CMake_ShowNsightProfilingReport_CurrentFile",
+            "sequence": [
+                {
+                    "command": "workbench.action.tasks.runTask",
+                    "args": "$(report) Nsight: Show Profiling Report (Current File)"
+                }
+            ]
+        },
+        {
             "command": "multiCommand.run_task_CMake_ShowValgrindMemcheckReport",
             "sequence": [
                 {
@@ -243,46 +261,16 @@
         },
         {
             "group": "_cppprojecttoolbar",
-            "text": "$(telescope)",
-            "name": "LiveProcMon: Start Monitoring",
-            "tooltip": "LiveProcMon: Start Monitoring",
-            "command": "multiCommand.run_task_CMake_StartLiveProcMon",
-            "alignment": "left",
-            "priority": 99999,
-        },
-        {
-            "group": "_cppprojecttoolbar",
-            "text": "$(stop)",
-            "name": "LiveProcMon: Stop Monitoring",
-            "tooltip": "LiveProcMon: Stop Monitoring",
-            "command": "multiCommand.run_task_CMake_StopLiveProcMon",
-            "alignment": "left",
-            "priority": 99999,
-        },
-        {
-            "group": "_cppprojecttoolbar",
             "text": "$(report)",
-            "name": "Valgrind: Show Memcheck Report",
-            "tooltip": "Valgrind: Show Memcheck Report",
-            "command": "multiCommand.run_task_CMake_ShowValgrindMemcheckReport",
+            "name": "Nsight: Show Profiling Report (Current Project)",
+            "tooltip": "Nsight: Show Profiling Report (Current Project)",
+            "command": "multiCommand.run_task_CMake_ShowNsightProfilingReport_CurrentProject",
             "alignment": "left",
             "priority": 99999,
         },
         {
             "group": "_cppprojecttoolbar",
-            "text": "$(report)",
-            "name": "Valgrind: Show Cachegrind Report",
-            "tooltip": "Valgrind: Show Cachegrind Report",
-            "command": "multiCommand.run_task_CMake_ShowValgrindCachegrindReport",
-            "alignment": "left",
-            "priority": 99999,
-        },
-        {
-            "group": "_cppprojecttoolbar",
-            "text": "$(report)",
-            "name": "Valgrind: Show Callgrind Report",
-            "tooltip": "Valgrind: Show Callgrind Report",
-            "command": "multiCommand.run_task_CMake_ShowValgrindCallgrindReport",
+            "text": "$(kebab-vertical)",
             "alignment": "left",
             "priority": 99999,
         },
@@ -292,6 +280,21 @@
             "name": "CppRunCurrentFile: Run/Debug",
             "tooltip": "CppRunCurrentFile: Run/Debug",
             "command": "launches.CppRunCurrentFile_Debug",
+            "alignment": "left",
+            "priority": 99999,
+        },
+        {
+            "group": "_cppprojecttoolbar",
+            "text": "$(report)",
+            "name": "Nsight: Show Profiling Report (Current File)",
+            "tooltip": "Nsight: Show Profiling Report (Current File)",
+            "command": "multiCommand.run_task_CMake_ShowNsightProfilingReport_CurrentFile",
+            "alignment": "left",
+            "priority": 99999,
+        },
+        {
+            "group": "_cppprojecttoolbar",
+            "text": "$(kebab-vertical)",
             "alignment": "left",
             "priority": 99999,
         },
@@ -380,5 +383,8 @@
         "cpp_compiler_arg_optimization_level": "-G",
         "build_directory": "${workspaceFolder}/build/CppRunCurrentFile"
     },
+    "NsightNcuMetrics": [
+        "gpu__time_active,sm__inst_executed,l1tex__t_sector_hit_rate.pct"
+    ],
     "git.ignoreLimitWarning": true
 }

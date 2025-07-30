@@ -27,7 +27,8 @@
                 "hediet.vscode-drawio",
                 "rioj7.command-variable",
                 "dacapoday.status-bar-button",
-                "ArturoDent.launch-config"
+                "ArturoDent.launch-config",
+                "phplasma.csv-to-table"
             ]
         }
     },

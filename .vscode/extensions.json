@@ -1,7 +1,7 @@
 // Suggested extensions
 {
     "recommendations": [
-	"NVIDIA.nsight-vscode-edition",
+        "NVIDIA.nsight-vscode-edition",
         "ms-vscode-remote.remote-containers",
         "ms-vscode.cpptools-extension-pack",
         //"xaver.clang-format",
@@ -20,5 +20,6 @@
         "rioj7.command-variable",
         "dacapoday.status-bar-button",
         "ArturoDent.launch-config",
+        "phplasma.csv-to-table"
     ]
 }

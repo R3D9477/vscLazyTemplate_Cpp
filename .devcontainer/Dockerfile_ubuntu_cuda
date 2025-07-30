@@ -19,7 +19,13 @@ RUN update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-
 
 # INSTALL ADDITIONAL PKGS
 
-# for CUDA
+# for CUDA (Ubuntu 22.04)
+RUN echo "deb https://developer.download.nvidia.com/devtools/repos/ubuntu2204/$(dpkg --print-architecture) /" | tee /etc/apt/sources.list.d/nvidia-devtools.list
+RUN apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+RUN apt update
+RUN apt install nsight-compute -y
+RUN ln -s /opt/nvidia/nsight-compute/*/ncu /usr/bin/ncu
+
 RUN apt install nvidia-cuda-toolkit -y
 
 # for vcpkg
