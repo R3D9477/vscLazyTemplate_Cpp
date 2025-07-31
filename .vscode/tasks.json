@@ -86,44 +86,46 @@
             ]
         },
         {
-            "label": "$(report) Nsight: Show Profiling Report (Current Project)",
-            "command": "python3",
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "linux": {
-                "args": [
-                    "${workspaceFolder}/.vscode/nsighutils/generate_ncu_csv_report.py",
-                    "${config:NsightNcuMetrics.report1}",
-                    "${command:cmake.launchTargetPath}"
-                ],
-            },
+            "label": "$(report) NVSMI: Show Report",
             "problemMatcher": {
                 "base": "$gcc",
                 "fileLocation": [
                     "absolute"
                 ]
-            }
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "NVSMI: Show Report",
+                "VSCode Utility: Toggle Terminal Twice",
+            ]
+        },
+        {
+            "label": "$(report) Nsight: Show Profiling Report (Current Project)",
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": [
+                    "absolute"
+                ]
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Nsight: Show Profiling Report (Current Project)",
+                "VSCode Utility: Toggle Terminal Twice",
+            ]
         },
         {
             "label": "$(report) Nsight: Show Profiling Report (Current File)",
-            "command": "python3",
-            "options": {
-                "cwd": "${config:CppRunCurrentFile.build_directory}"
-            },
-            "linux": {
-                "args": [
-                    "${workspaceFolder}/.vscode/nsighutils/generate_ncu_csv_report.py",
-                    "${config:NsightNcuMetrics.report1}",
-                    "${config:CppRunCurrentFile.build_directory}/${fileBasenameNoExtension}"
-                ],
-            },
             "problemMatcher": {
                 "base": "$gcc",
                 "fileLocation": [
                     "absolute"
                 ]
-            }
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Nsight: Show Profiling Report (Current File)",
+                "VSCode Utility: Toggle Terminal Twice",
+            ]
         },
         {
             "label": "$(report) Valgrind: Show Cachegrind Report",
@@ -180,6 +182,68 @@
                 "LiveProcMon: Stop Monitoring (opened terminal for failure case)",
                 "VSCode Utility: Toggle Terminal Twice",
             ]
+        },
+        // User tasks: Nvidia
+        {
+            "label": "NVSMI: Show Report",
+            "hide": true,
+            "command": "python3",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "linux": {
+                "args": [
+                    "${workspaceFolder}/.vscode/nvutils/show_smi_report.py"
+                ],
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": [
+                    "absolute"
+                ]
+            }
+        },
+        {
+            "label": "Nsight: Show Profiling Report (Current Project)",
+            "hide": true,
+            "command": "python3",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "linux": {
+                "args": [
+                    "${workspaceFolder}/.vscode/nvutils/show_ncu_report.py",
+                    "${config:NsightNcuMetrics.report1}",
+                    "${command:cmake.launchTargetPath}"
+                ],
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": [
+                    "absolute"
+                ]
+            }
+        },
+        {
+            "label": "Nsight: Show Profiling Report (Current File)",
+            "hide": true,
+            "command": "python3",
+            "options": {
+                "cwd": "${config:CppRunCurrentFile.build_directory}"
+            },
+            "linux": {
+                "args": [
+                    "${workspaceFolder}/.vscode/nvutils/show_ncu_report.py",
+                    "${config:NsightNcuMetrics.report1}",
+                    "${config:CppRunCurrentFile.build_directory}/${fileBasenameNoExtension}"
+                ],
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": [
+                    "absolute"
+                ]
+            }
         },
         // User tasks: CppRunCurrentFile
         {

@@ -194,7 +194,16 @@
             ]
         },
         {
-            "command": "multiCommand.run_task_CMake_ShowNsightProfilingReport_CurrentProject",
+            "command": "multiCommand.run_task_nvidia_ShowSmiReport",
+            "sequence": [
+                {
+                    "command": "workbench.action.tasks.runTask",
+                    "args": "$(report) NVSMI: Show Report"
+                }
+            ]
+        },
+        {
+            "command": "multiCommand.run_task_nvidia_ShowNsightProfilingReport_CurrentProject",
             "sequence": [
                 {
                     "command": "workbench.action.tasks.runTask",
@@ -203,7 +212,7 @@
             ]
         },
         {
-            "command": "multiCommand.run_task_CMake_ShowNsightProfilingReport_CurrentFile",
+            "command": "multiCommand.run_task_nvidia_ShowNsightProfilingReport_CurrentFile",
             "sequence": [
                 {
                     "command": "workbench.action.tasks.runTask",
@@ -264,7 +273,7 @@
             "text": "$(report)",
             "name": "Nsight: Show Profiling Report (Current Project)",
             "tooltip": "Nsight: Show Profiling Report (Current Project)",
-            "command": "multiCommand.run_task_CMake_ShowNsightProfilingReport_CurrentProject",
+            "command": "multiCommand.run_task_nvidia_ShowNsightProfilingReport_CurrentProject",
             "alignment": "left",
             "priority": 99999,
         },
@@ -288,13 +297,22 @@
             "text": "$(report)",
             "name": "Nsight: Show Profiling Report (Current File)",
             "tooltip": "Nsight: Show Profiling Report (Current File)",
-            "command": "multiCommand.run_task_CMake_ShowNsightProfilingReport_CurrentFile",
+            "command": "multiCommand.run_task_nvidia_ShowNsightProfilingReport_CurrentFile",
             "alignment": "left",
             "priority": 99999,
         },
         {
             "group": "_cppprojecttoolbar",
             "text": "$(kebab-vertical)",
+            "alignment": "left",
+            "priority": 99999,
+        },
+        {
+            "group": "_cppprojecttoolbar",
+            "text": "$(report)",
+            "name": "NVSMI: Show Report",
+            "tooltip": "NVSMI: Show Report",
+            "command": "multiCommand.run_task_nvidia_ShowSmiReport",
             "alignment": "left",
             "priority": 99999,
         },
