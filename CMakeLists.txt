@@ -31,8 +31,6 @@ include("${CMAKE_SOURCE_DIR}/.vscode/cmakeutils/Utils.cmake")
 
 #------------------------------------------------------------------------------------------------------
 
-include("${CMAKE_SOURCE_DIR}/.vscode/cmakeutils/SetupQt6App.cmake") # Setup Qt6 application
-
 if(NOT TARGET ${MAIN_TARGET})
     add_executable(${MAIN_TARGET} ${${PROJECT_NAME}_SOURCES}) # Setup regular application
 endif()

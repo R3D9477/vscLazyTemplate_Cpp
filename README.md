@@ -3,7 +3,7 @@ Template of C++ project with config to make a VSCode be IDE-like with set of use
 
 ### Adoptations
 * [for Nvidia CUDA](https://github.com/R3D9477/vscLazyTemplate_Cpp/tree/CUDA)
-* [for Qt6](https://github.com/R3D9477/vscLazyTemplate_Cpp/tree/Qt6)
+* [for Qt](https://github.com/R3D9477/vscLazyTemplate_Cpp/tree/Qt)
 
 ### Features
 * configured to run as on host, as inside [Docker](.devcontainer/Dockerfile_debian_clang-19)
