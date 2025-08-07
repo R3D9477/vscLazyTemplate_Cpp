@@ -2,8 +2,7 @@
     {
         "name": "NVIDIA",
         "compilers": {
-            "C": "/usr/bin/nvcc",
-            "CXX": "/usr/bin/nvcc"
+            "CXX": "nvcc"
         },
         "isTrusted": true
     }

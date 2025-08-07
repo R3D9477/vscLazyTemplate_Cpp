@@ -492,8 +492,8 @@
             "hide": true,
             "dependsOrder": "parallel",
             "dependsOn": [
-                "vcpkg: Install",
-                "Conan: Install"
+                //"vcpkg: Install",
+                //"Conan: Install"
             ],
             "problemMatcher": {
                 "base": "$gcc",

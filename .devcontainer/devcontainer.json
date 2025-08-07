@@ -9,26 +9,31 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "NVIDIA.nsight-vscode-edition",
-                "ms-vscode-remote.remote-containers",
-                "ms-vscode.cpptools-extension-pack",
-                //"xaver.clang-format",
+                // [ VSCODE SYSTEM ]
+                "ArturoDent.launch-config",
+                "rioj7.command-variable",
                 "ryuta46.multi-command",
+                "ms-vscode-remote.remote-containers",
+                // [ C++ ]
+                "ms-vscode.cpptools-extension-pack",
+                //"xaver.clang-format", // obsolete
                 "vadimcn.vscode-lldb",
-                "fredericbonnet.cmake-test-adapter",
-                "matepek.vscode-catch2-test-adapter",
-                "krosf.vscode-valgrind",
-                "tintinweb.graphviz-interactive-preview",
+                // [ C++ TOOLS ]
+                "krosf.vscode-valgrind", // view Valgrind reports
+                "tintinweb.graphviz-interactive-preview", // view Valgrind reports
+                "hediet.vscode-drawio", // view Valgrind reports
+                "fredericbonnet.cmake-test-adapter", // Unit Testing
+                "matepek.vscode-catch2-test-adapter", // Unit Testing
+                "CFXS.BuildOutputColorizerIAR", // View Cmake output
                 "Guyutongxue.cpp-reference",
-                "CFXS.BuildOutputColorizerIAR",
+                // [ VSCODE INTERFACE ]
                 "SR-team.vscode-autohide-fork",
                 "Blackboxapp.blackbox",
                 "jiapeiyao.tab-group",
-                "hediet.vscode-drawio",
-                "rioj7.command-variable",
                 "dacapoday.status-bar-button",
-                "ArturoDent.launch-config",
-                "phplasma.csv-to-table"
+                // [ CUDA ]
+                "NVIDIA.nsight-vscode-edition",
+                "GrapeCity.gc-excelviewer" // View profiling reports (csv)
             ]
         }
     },

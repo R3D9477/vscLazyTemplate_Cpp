@@ -1,13 +1,35 @@
 FROM nvidia/cuda:12.4.1-base-ubuntu22.04
 
+ENV TZ=US \
+    DEBIAN_FRONTEND=noninteractive
+
 USER root
-
 RUN passwd --delete root
-
-# INSTALL CLANG
 
 RUN apt update -y
 RUN apt install lsb-release ninja-build wget make build-essential software-properties-common gnupg git sudo nano valgrind pkg-config -y
+
+# -------------------------------------------------------------------------------------------
+# INSTALL CUDA
+
+RUN apt install nvidia-cuda-toolkit -y
+
+# Nsight Latest (Ubuntu 22.04)
+#RUN echo "deb https://developer.download.nvidia.com/devtools/repos/ubuntu2204/$(dpkg --print-architecture) /" | tee /etc/apt/sources.list.d/nvidia-devtools.list
+#RUN apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+#RUN apt update
+#RUN apt install nsight-compute -y
+#RUN ln -s /opt/nvidia/nsight-compute/*/ncu /usr/bin/ncu
+
+# Nsight for Pascal architecture
+RUN wget -O /tmp/nsight-compute-2019_5-Linux-installer.run "https://developer.nvidia.com/rdp/assets/nsight-compute-2019_5-Linux-installer"
+RUN chmod +x /tmp/nsight-compute-2019_5-Linux-installer.run
+RUN mkdir -p /opt/nsight-compute-2019_5
+RUN /tmp/nsight-compute-2019_5-Linux-installer.run --noexec --target /opt/nsight-compute-2019_5
+RUN ln -s /opt/nsight-compute-2019_5/pkg/nv-nsight-cu-cli /usr/bin/ncu
+
+# -------------------------------------------------------------------------------------------
+# INSTALL CLANG
 
 RUN wget https://apt.llvm.org/llvm.sh -O /tmp/llvm.sh
 RUN chmod +x /tmp/llvm.sh
@@ -17,23 +39,13 @@ RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 100
 RUN update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-19 100
 RUN update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-19 100
 
-# INSTALL ADDITIONAL PKGS
-
-# for CUDA (Ubuntu 22.04)
-RUN echo "deb https://developer.download.nvidia.com/devtools/repos/ubuntu2204/$(dpkg --print-architecture) /" | tee /etc/apt/sources.list.d/nvidia-devtools.list
-RUN apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-RUN apt update
-RUN apt install nsight-compute -y
-RUN ln -s /opt/nvidia/nsight-compute/*/ncu /usr/bin/ncu
-
-RUN apt install nvidia-cuda-toolkit -y
+# -------------------------------------------------------------------------------------------
+# INSTALL & CONFIGURE CPPTOOLS
 
 # for vcpkg
 RUN apt install curl zip unzip tar libtool autoconf automake autoconf-archive bison flex nasm -y
 
-# -------------------------------------------------------------------------------------------
-# INSTALL CPPTOOLS
-
+# for cmake & conan
 RUN apt install python3 python3-venv -y
 
 # CREATE USER
