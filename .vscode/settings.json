@@ -11,7 +11,7 @@
     "cmake.buildDirectory": "${workspaceFolder}/build/${command:cmake.buildType}",
     "cmake.configureArgs": [
         //    "-DCMAKE_TOOLCHAIN_FILE_CONAN=${workspaceFolder}/build/${command:cmake.buildType}/build/${command:cmake.buildType}/generators/conan_toolchain.cmake",
-        //    "-DCMAKE_TOOLCHAIN_FILE_VCPKG=${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+        "-DCMAKE_TOOLCHAIN_FILE_VCPKG=${env:VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
     ],
     "cmake.environment": {
         "CLICOLOR_FORCE": "1"

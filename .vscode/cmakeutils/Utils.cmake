@@ -58,6 +58,12 @@ enable_testing()
 
 set(SOURCE_MASK_TEST *.cu)
 
+set(CMAKE_THREAD_LIBS_INIT "-lpthread")
+set(CMAKE_HAVE_THREADS_LIBRARY 1)
+set(CMAKE_USE_WIN32_THREADS_INIT 0)
+set(CMAKE_USE_PTHREADS_INIT 1)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
 function(target_add_tests_from_folder TARGET_NAME FOLDER_PATH)
     set(CMAKE_CXX_FLAGS "--coverage")
     foreach(SRC_MASK_TEST ${SOURCE_MASK_TEST})

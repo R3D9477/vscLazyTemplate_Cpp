@@ -492,7 +492,7 @@
             "hide": true,
             "dependsOrder": "parallel",
             "dependsOn": [
-                //"vcpkg: Install",
+                "vcpkg: Install",
                 //"Conan: Install"
             ],
             "problemMatcher": {
