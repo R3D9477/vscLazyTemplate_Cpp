@@ -1,13 +1,17 @@
-FROM debian:latest
+FROM nvidia/cuda:12.4.1-base-ubuntu22.04
+
+ENV TZ=US \
+    DEBIAN_FRONTEND=noninteractive
 
 USER root
-
 RUN passwd --delete root
 
-# INSTALL CLANG
-
 RUN apt update -y
-RUN apt install lsb-release ninja-build wget make build-essential software-properties-common gnupg git sudo nano valgrind -y
+RUN apt install lsb-release ninja-build wget make build-essential software-properties-common gnupg git sudo nano valgrind pkg-config -y
+
+# -------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------
+# INSTALL CLANG
 
 RUN wget https://apt.llvm.org/llvm.sh -O /tmp/llvm.sh
 RUN chmod +x /tmp/llvm.sh
@@ -17,10 +21,20 @@ RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 100
 RUN update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-19 100
 RUN update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-19 100
 
-# INSTALL ADDITIONAL PKGS
+# -------------------------------------------------------------------------------------------
+# INSTALL LIBS
 
 # for vcpkg
 RUN apt install curl zip unzip tar libtool autoconf automake autoconf-archive bison flex nasm -y
+
+# for cmake & conan
+RUN apt install python3 python3-venv -y
+
+# for OpenCV
+RUN apt install libva-dev libvdpau-dev -y
+
+# for gstreamer
+RUN apt install libdrm-dev -y
 
 # for Qt6
 RUN apt install pkg-config libgl-dev libgl1-mesa-dev xkb-data libxcb-util-dev libxcb-util0-dev \
@@ -35,15 +49,9 @@ RUN apt install pkg-config libgl-dev libgl1-mesa-dev xkb-data libxcb-util-dev li
 RUN apt install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev libegl1-mesa-dev -y # didn't help
 RUN apt install *xkb* -y # works
 
-# for OpenCV
-RUN apt install libva-dev libvdpau-dev -y
-
-# for gstreamer
-RUN apt install libdrm-dev -y
-
-# INSTALL CPPTOOLS
-
-RUN apt install python3 python3-venv -y
+# -------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------
+# CONFIGURE
 
 # CREATE USER
 
