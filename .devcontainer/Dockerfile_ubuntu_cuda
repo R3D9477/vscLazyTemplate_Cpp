@@ -10,6 +10,27 @@ RUN apt update -y
 RUN apt install lsb-release ninja-build wget make build-essential software-properties-common gnupg git sudo nano valgrind pkg-config -y
 
 # -------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------
+# INSTALL CLANG
+
+RUN wget https://apt.llvm.org/llvm.sh -O /tmp/llvm.sh
+RUN chmod +x /tmp/llvm.sh
+RUN /tmp/llvm.sh 19 all
+RUN update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-19 100
+RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 100
+RUN update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-19 100
+RUN update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-19 100
+
+# -------------------------------------------------------------------------------------------
+# INSTALL LIBS
+
+# for vcpkg
+RUN apt install curl zip unzip tar libtool autoconf automake autoconf-archive bison flex nasm -y
+
+# for cmake & conan
+RUN apt install python3 python3-venv -y
+
+# -------------------------------------------------------------------------------------------
 # INSTALL CUDA
 
 RUN apt install nvidia-cuda-toolkit -y
@@ -29,24 +50,8 @@ RUN /tmp/nsight-compute-2019_5-Linux-installer.run --noexec --target /opt/nsight
 RUN ln -s /opt/nsight-compute-2019_5/pkg/nv-nsight-cu-cli /usr/bin/ncu
 
 # -------------------------------------------------------------------------------------------
-# INSTALL CLANG
-
-RUN wget https://apt.llvm.org/llvm.sh -O /tmp/llvm.sh
-RUN chmod +x /tmp/llvm.sh
-RUN /tmp/llvm.sh 19 all
-RUN update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-19 100
-RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 100
-RUN update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-19 100
-RUN update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-19 100
-
 # -------------------------------------------------------------------------------------------
-# INSTALL & CONFIGURE CPPTOOLS
-
-# for vcpkg
-RUN apt install curl zip unzip tar libtool autoconf automake autoconf-archive bison flex nasm -y
-
-# for cmake & conan
-RUN apt install python3 python3-venv -y
+# CONFIGURE
 
 # CREATE USER
 
