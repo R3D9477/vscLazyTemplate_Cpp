@@ -348,7 +348,7 @@
                 "${file}",
                 "-o",
                 "${config:CppRunCurrentFile.build_directory}/${fileBasenameNoExtension}",
-                "${config:CppRunCurrentFile.cpp_compiler_arg_cpp_standard}",
+                "-std=${config:CppRunCurrentFile.cpp_compiler_arg_cpp_standard}",
                 "${config:CppRunCurrentFile.cpp_compiler_arg_optimization_level}",
             ],
             "dependsOn": [

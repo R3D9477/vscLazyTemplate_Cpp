@@ -362,6 +362,7 @@
             "priority": 99999,
         }
     ],
+    "git.ignoreLimitWarning": true,
     "LiveProcMon": {
         "liveProcMonTemplatePath": "${workspaceFolder}/.vscode/liveprocmon/liveprocmon_cpumem.py_template",
         "executablePath": "${command:cmake.launchTargetPath}",
@@ -376,9 +377,8 @@
     },
     "CppRunCurrentFile": {
         "cpp_compiler_path": "g++",
-        "cpp_compiler_arg_cpp_standard": "-std=c++17",
+        "cpp_compiler_arg_cpp_standard": "c++17",
         "cpp_compiler_arg_optimization_level": "-g",
         "build_directory": "${workspaceFolder}/build/CppRunCurrentFile"
-    },
-    "git.ignoreLimitWarning": true
+    }
 }
