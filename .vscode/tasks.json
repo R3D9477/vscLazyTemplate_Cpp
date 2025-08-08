@@ -454,7 +454,7 @@
                 "${config:CppRunCurrentFile.build_directory}/${fileBasenameNoExtension}",
                 "-std=${config:CppRunCurrentFile.cpp_compiler_arg_cpp_standard}",
                 "${config:CppRunCurrentFile.cpp_compiler_arg_optimization_level}",
-                "--gpu-architecture=sm_${config:CppRunCurrentFile.cuda_gpu_architecture}"
+                "--gpu-architecture=${config:CppRunCurrentFile.cuda_gpu_architecture}"
             ],
             "dependsOn": [
                 "CppRunCurrentFile: Create Build Directory"
