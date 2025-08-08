@@ -9,14 +9,24 @@ include("${CMAKE_SOURCE_DIR}/.vscode/cmakeutils/SetupMainTargetName.cmake")
 
 project(${MAIN_TARGET} VERSION 0.1.0 LANGUAGES CXX)
 
-set(CMAKE_CXX_COMPILER_ID "NVIDIA") # workaround to force Cmake detect compiler ID corrently
-enable_language(CUDA)
-
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_COLOR_DIAGNOSTICS ON)
+
+set(CMAKE_CXX_FLAGS_DEBUG "-gdwarf-4")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+
+#------------------------------------------------------------------------------------------------------
+# CUDA
+
+set(CMAKE_CXX_COMPILER_ID "NVIDIA") # workaround to force Cmake detect compiler ID corrently
+enable_language(CUDA)
+
+set(CMAKE_CUDA_ARCHITECTURES 60) # Pascal
+
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
 
 #------------------------------------------------------------------------------------------------------
 

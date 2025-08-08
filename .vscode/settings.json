@@ -383,6 +383,8 @@
             "priority": 99999,
         }
     ],
+    "git.ignoreLimitWarning": true,
+    "excel-viewer.showInfo": false,
     "LiveProcMon": {
         "liveProcMonTemplatePath": "${workspaceFolder}/.vscode/liveprocmon/liveprocmon_cpumem.py_template",
         "executablePath": "${command:cmake.launchTargetPath}",
@@ -397,14 +399,12 @@
     },
     "CppRunCurrentFile": {
         "cpp_compiler_path": "nvcc",
-        "cpp_compiler_arg_cpp_standard": "-std=c++17",
+        "cpp_compiler_arg_cpp_standard": "c++17",
         "cpp_compiler_arg_optimization_level": "-g",
-        "build_directory": "${workspaceFolder}/build/CppRunCurrentFile"
+        "build_directory": "${workspaceFolder}/build/CppRunCurrentFile",
+        "cuda_gpu_architecture": "60" // Pascal
     },
-    "NsightNcuMetrics": {
-        "report1": "gpu__time_active"
-    },
-    "csv-to-table.openGeneratedTableInNewEditor": false,
-    "git.ignoreLimitWarning": true,
-    "excel-viewer.showInfo": false
+    "NsightNcu": {
+        "Metrics": "gpu__time_active"
+    }
 }
