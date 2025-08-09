@@ -40,5 +40,5 @@
     "containerEnv": {
         "DISPLAY": ":0"
     },
-    "postStartCommand": "sudo chown -R build:build /home/build ; /home/build/.local/bin/conan profile detect --exist-ok ; /home/build/.install_vcpkg.sh"
+    "postStartCommand": "/home/build/.post_start.sh"
 }

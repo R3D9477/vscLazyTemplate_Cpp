@@ -1,7 +1,6 @@
 {
-    "name": "cppproject",
-    "version-string": "0.0.1",
-    "license": "MIT",
+    "name": "versions-test",
+    "version": "1.0.0",
     "dependencies": [
         "boost-test",
         "gtest"

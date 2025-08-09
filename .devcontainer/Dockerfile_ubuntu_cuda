@@ -31,23 +31,19 @@ RUN apt install curl zip unzip tar libtool autoconf automake autoconf-archive bi
 RUN apt install python3 python3-venv -y
 
 # -------------------------------------------------------------------------------------------
-# INSTALL CUDA
+# INSTALL CUDA 12.4
 
-RUN apt install nvidia-cuda-toolkit -y
-
-# Nsight Latest (Ubuntu 22.04)
-#RUN echo "deb https://developer.download.nvidia.com/devtools/repos/ubuntu2204/$(dpkg --print-architecture) /" | tee /etc/apt/sources.list.d/nvidia-devtools.list
-#RUN apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-#RUN apt update
-#RUN apt install nsight-compute -y
-#RUN ln -s /opt/nvidia/nsight-compute/*/ncu /usr/bin/ncu
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+RUN dpkg -i cuda-keyring_1.1-1_all.deb
+RUN rm cuda-keyring_1.1-1_all.deb
+RUN apt-get update
+RUN apt-get -y install cuda-toolkit-12-4
 
 # Nsight for Pascal architecture
-RUN wget -O /tmp/nsight-compute-2019_5-Linux-installer.run "https://developer.nvidia.com/rdp/assets/nsight-compute-2019_5-Linux-installer"
-RUN chmod +x /tmp/nsight-compute-2019_5-Linux-installer.run
-RUN mkdir -p /opt/nsight-compute-2019_5
-RUN /tmp/nsight-compute-2019_5-Linux-installer.run --noexec --target /opt/nsight-compute-2019_5
-RUN ln -s /opt/nsight-compute-2019_5/pkg/nv-nsight-cu-cli /usr/bin/ncu
+RUN wget -O "/tmp/nsight-compute-2019_5-Linux-installer.run" "https://developer.nvidia.com/rdp/assets/nsight-compute-2019_5-Linux-installer"
+RUN chmod +x "/tmp/nsight-compute-2019_5-Linux-installer.run"
+RUN mkdir -p "/opt/nsight-compute-2019_5"
+RUN "/tmp/nsight-compute-2019_5-Linux-installer.run" --noexec --target "/opt/nsight-compute-2019_5"
 
 # -------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------
@@ -57,7 +53,7 @@ RUN ln -s /opt/nsight-compute-2019_5/pkg/nv-nsight-cu-cli /usr/bin/ncu
 
 RUN groupadd build
 RUN useradd -rm -d /home/build -s /bin/bash -g root -G sudo -u 1001 build
-RUN echo "export USER=build" > /etc/profile.d/set_user.sh
+RUN echo "export USER=build" > "/etc/profile.d/set_user.sh"
 RUN passwd --delete build
 
 RUN usermod -a -G sudo build
@@ -65,38 +61,52 @@ RUN usermod -a -G build build
 
 RUN mkdir -p "/home/build/cppproject"
 RUN chown build:build "/home/build/cppproject"
-
-RUN mkdir -p "/home/build/.conan2"
-RUN chown build:build "/home/build/.conan2"
-RUN ln -s "/home/build/.conan2" "/home/build/conan2"
-
-RUN mkdir -p "/home/build/.vcpkg"
-RUN chown build:build "/home/build/.vcpkg"
-RUN ln -s "/home/build/.vcpkg" "/home/build/vcpkg"
+RUN chown build:build -R "/home/build"
 
 USER build:build
-WORKDIR /home/build
+WORKDIR "/home/build"
 
 # INSTALL BUILD SYSTEM
 
-RUN python3 -m venv /home/build/.local --system-site-packages
+RUN python3 -m venv "/home/build/.local" --system-site-packages
 ENV PATH="${PATH}:/home/build/.local/bin"
 
+RUN /home/build/.local/bin/pip install gprof2dot matplotlib pillow
+
+# CMake
 RUN /home/build/.local/bin/pip install cmake
+
+# Conan2
+RUN mkdir -p "/home/build/.conan2"
+RUN ln -s "/home/build/.conan2" "/home/build/conan2"
 
 RUN /home/build/.local/bin/pip install conan
 RUN /home/build/.local/bin/conan remote update conancenter --url="https://center2.conan.io"
 
-RUN /home/build/.local/bin/pip install gprof2dot matplotlib pillow
+# VCPKG
+RUN mkdir -p "/home/build/.vcpkg"
+RUN ln -s "/home/build/.vcpkg" "/home/build/vcpkg"
 
-ENV VCPKG_VERSION="2024.11.16"
-RUN echo '#!/bin/bash' > "/home/build/.install_vcpkg.sh"
-RUN echo 'if [ -d "/home/build/vcpkg/vcpkg" ]; then exit 0; fi' >> "/home/build/.install_vcpkg.sh"
-RUN echo 'wget "https://github.com/microsoft/vcpkg/archive/refs/tags/${VCPKG_VERSION}.zip" -O "/tmp/vcpkg-${VCPKG_VERSION}.zip"' >> "/home/build/.install_vcpkg.sh"
-RUN echo 'unzip "/tmp/vcpkg-${VCPKG_VERSION}.zip" -d "/home/build/.vcpkg"' >> "/home/build/.install_vcpkg.sh"
-RUN echo 'mv "/home/build/.vcpkg/vcpkg-${VCPKG_VERSION}" "/home/build/.vcpkg/vcpkg"' >> "/home/build/.install_vcpkg.sh"
-RUN echo '"/home/build/.vcpkg/vcpkg/bootstrap-vcpkg.sh"' >> "/home/build/.install_vcpkg.sh"
-RUN chmod +x "/home/build/.install_vcpkg.sh"
+RUN echo 'if ! [ -d "/home/build/vcpkg/vcpkg" ]; then'                                       > "/home/build/.post_start_install_vcpkg.sh"
+RUN echo '  git clone "https://github.com/microsoft/vcpkg.git" "/home/build/.vcpkg/vcpkg"'  >> "/home/build/.post_start_install_vcpkg.sh"
+RUN echo '  "/home/build/.vcpkg/vcpkg/bootstrap-vcpkg.sh"'                                  >> "/home/build/.post_start_install_vcpkg.sh"
+RUN echo 'fi'                                                                               >> "/home/build/.post_start_install_vcpkg.sh"
 
-RUN echo 'export VCPKG_ROOT="/home/build/.vcpkg/vcpkg"' >> "/home/build/.bashrc"
-RUN echo 'export PATH="${PATH}:/home/build/.local/bin:${VCPKG_ROOT}"' >> "/home/build/.bashrc"
+RUN echo 'export VCPKG_ROOT="/home/build/.vcpkg/vcpkg"'                 >> "/home/build/.profile"
+RUN echo 'export PATH="${PATH}:/home/build/.local/bin:${VCPKG_ROOT}"'   >> "/home/build/.profile"
+
+# -------------------------------------------------------------------------------------------
+# POST START SCRIPT
+
+RUN echo '#!/bin/bash'                                               > "/home/build/.post_start.sh"
+RUN echo 'set -e'                                                   >> "/home/build/.post_start.sh"
+RUN echo 'touch /home/build/.post_start.lock'                       >> "/home/build/.post_start.sh"
+RUN echo 'echo "> post_start started at `date`"'                    >> "/home/build/.post_start.sh"
+
+RUN echo 'sudo chown -R build:build /home/build'                    >> "/home/build/.post_start.sh"
+RUN echo '/home/build/.local/bin/conan profile detect --exist-ok'   >> "/home/build/.post_start.sh"
+RUN echo 'source /home/build/.post_start_install_vcpkg.sh'          >> "/home/build/.post_start.sh"
+
+RUN echo 'echo "> post_start ended at `date`"'                      >> "/home/build/.post_start.sh"
+RUN echo 'rm -f /home/build/.post_start.lock'                       >> "/home/build/.post_start.sh"
+RUN chmod +x "/home/build/.post_start.sh"

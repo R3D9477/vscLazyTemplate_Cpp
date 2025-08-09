@@ -36,8 +36,8 @@ services:
       - <<: *volume-build
       - <<: *volume-ssh-agent
       - <<: *volume-X11
-      - $HOME/.conan2:/home/build/.conan2
-      - $HOME/.vcpkg:/home/build/.vcpkg
+      - $HOME/.conan2_cuda:/home/build/.conan2
+      - $HOME/.vcpkg_cuda:/home/build/.vcpkg
     devices:
       - /dev/dri:/dev/dri
     runtime: nvidia

@@ -2,10 +2,11 @@ import os
 import sys
 import subprocess
 
-command = "ncu"
-report_path= "{0}.csv".format(sys.argv[2])
+profiler = sys.argv[1]
 
-report_lines = subprocess.check_output(["ncu","--metrics", sys.argv[1], "--csv", sys.argv[2]]).decode().splitlines()
+report_path= "{0}.csv".format(sys.argv[3])
+
+report_lines = subprocess.check_output([profiler,"--metrics", sys.argv[2], "--csv", sys.argv[3]]).decode().splitlines()
 
 with open(report_path, 'w') as report_file:
     write_to_file = False

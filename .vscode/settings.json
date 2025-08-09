@@ -404,7 +404,8 @@
         "build_directory": "${workspaceFolder}/build/CppRunCurrentFile",
         "cuda_gpu_architecture": "sm_60" // Pascal
     },
-    "NsightNcu": {
-        "Metrics": "gpu__time_active"
+    "CUDA": {
+        "ncu_profiler": "/opt/nsight-compute-2019_5/pkg/nv-nsight-cu-cli",
+        "ncu_metrics_set1": "gpu__time_active"
     }
 }

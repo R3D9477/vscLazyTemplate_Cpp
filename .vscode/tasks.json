@@ -213,7 +213,8 @@
             "linux": {
                 "args": [
                     "${workspaceFolder}/.vscode/nvutils/show_ncu_report.py",
-                    "${config:NsightNcu.Metrics}",
+                    "${config:CUDA.ncu_profiler}",
+                    "${config:CUDA.ncu_metrics_set1}",
                     "${command:cmake.launchTargetPath}"
                 ],
             },
@@ -234,7 +235,8 @@
             "linux": {
                 "args": [
                     "${workspaceFolder}/.vscode/nvutils/show_ncu_report.py",
-                    "${config:NsightNcuMetrics.report1}",
+                    "${config:CUDA.ncu_profiler}",
+                    "${config:CUDA.ncu_metrics_set1}",
                     "${config:CppRunCurrentFile.build_directory}/${fileBasenameNoExtension}"
                 ],
             },
