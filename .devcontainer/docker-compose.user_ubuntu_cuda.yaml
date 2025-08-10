@@ -40,6 +40,8 @@ services:
       - $HOME/.vcpkg_cuda:/home/build/.vcpkg
     devices:
       - /dev/dri:/dev/dri
+    cap_add:
+      - SYS_ADMIN
     runtime: nvidia
     deploy:
       resources:

@@ -1,49 +1,61 @@
 FROM nvidia/cuda:12.4.1-base-ubuntu22.04
 
-ENV TZ=US \
-    DEBIAN_FRONTEND=noninteractive
+ENV TZ=US DEBIAN_FRONTEND=noninteractive
 
 USER root
 RUN passwd --delete root
 
 RUN apt update -y
-RUN apt install lsb-release ninja-build wget make build-essential software-properties-common gnupg git sudo nano valgrind pkg-config -y
+RUN apt install -y lsb-release ninja-build wget make build-essential software-properties-common gnupg git sudo nano valgrind pkg-config
 
 # -------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------
 # INSTALL CLANG
 
-RUN wget https://apt.llvm.org/llvm.sh -O /tmp/llvm.sh
-RUN chmod +x /tmp/llvm.sh
-RUN /tmp/llvm.sh 19 all
-RUN update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-19 100
-RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 100
-RUN update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-19 100
-RUN update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-19 100
+#RUN wget --no-verbose --show-progress --progress=bar:force:noscroll -O "/tmp/llvm.sh" "https://apt.llvm.org/llvm.sh"
+#RUN chmod +x /tmp/llvm.sh
+#RUN /tmp/llvm.sh 19 all
+#RUN update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-19 100
+#RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-19 100
+#RUN update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-19 100
+#RUN update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-19 100
+
+RUN apt install -y clang-format clang-tidy
 
 # -------------------------------------------------------------------------------------------
 # INSTALL LIBS
 
 # for vcpkg
-RUN apt install curl zip unzip tar libtool autoconf automake autoconf-archive bison flex nasm -y
+RUN apt install -y curl zip unzip tar libtool autoconf automake autoconf-archive bison flex nasm
 
 # for cmake & conan
-RUN apt install python3 python3-venv -y
+RUN apt install -y python3 python3-venv
 
 # -------------------------------------------------------------------------------------------
-# INSTALL CUDA 12.4
+# INSTALL CUDA
 
-RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
-RUN dpkg -i cuda-keyring_1.1-1_all.deb
-RUN rm cuda-keyring_1.1-1_all.deb
-RUN apt-get update
-RUN apt-get -y install cuda-toolkit-12-4
+# CUDA 12.4
+#RUN wget --no-verbose --show-progress --progress=bar:force:noscroll -O "https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb"
+#RUN dpkg -i cuda-keyring_1.1-1_all.deb
+#RUN rm cuda-keyring_1.1-1_all.deb
+#RUN apt-get update
+#RUN apt-get -y install cuda-toolkit-12-4
 
-# Nsight for Pascal architecture
-RUN wget -O "/tmp/nsight-compute-2019_5-Linux-installer.run" "https://developer.nvidia.com/rdp/assets/nsight-compute-2019_5-Linux-installer"
+# WORKAROUND FOR PASCAL
+# install nvcc 11.5
+RUN apt install -y nvidia-cuda-toolkit 
+# install gcc-10 for CUDA 11.5 (https://github.com/NVlabs/instant-ngp/issues/119#issuecomment-1034701258)
+RUN apt install -y gcc-10 g++-10
+RUN mv "/usr/lib/nvidia-cuda-toolkit/bin/g++" "/usr/lib/nvidia-cuda-toolkit/bin/g++-cuda-11.5"
+RUN mv "/usr/lib/nvidia-cuda-toolkit/bin/gcc" "/usr/lib/nvidia-cuda-toolkit/bin/gcc-cuda-11.5"
+RUN ln -s "/usr/bin/g++-10" "/usr/lib/nvidia-cuda-toolkit/bin/g++"
+RUN ln -s "/usr/bin/gcc-10" "/usr/lib/nvidia-cuda-toolkit/bin/gcc"
+# install ncu
+RUN wget --no-verbose --show-progress --progress=bar:force:noscroll -O "/tmp/nsight-compute-2019_5-Linux-installer.run" "https://developer.nvidia.com/rdp/assets/nsight-compute-2019_5-Linux-installer"
 RUN chmod +x "/tmp/nsight-compute-2019_5-Linux-installer.run"
 RUN mkdir -p "/opt/nsight-compute-2019_5"
 RUN "/tmp/nsight-compute-2019_5-Linux-installer.run" --noexec --target "/opt/nsight-compute-2019_5"
+RUN rm "/tmp/nsight-compute-2019_5-Linux-installer.run"
 
 # -------------------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------------------

@@ -10,8 +10,11 @@ Full info about `Lazy Template` can be found in [main](https://github.com/R3D947
 * change in `CMakeLists.txt` line `27` option `CMAKE_CUDA_ARCHITECTURES` to your own (by default `60` for `Pascal`)
 
 ### Notes:
+* by default adopted for `Pascal` microarchitecture
 * `vcpkg` is supported (enabled)
 * `Conan2` is not supported (disabled)
+* `boost-tests` checked and enabled
+* `gtest` checked and enabled
 
 ---
 
