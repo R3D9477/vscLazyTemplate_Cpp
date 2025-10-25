@@ -342,14 +342,15 @@
         {
             "label": "CppRunCurrentFile: Build",
             "hide": true,
-            "type": "process",
-            "command": "${config:CppRunCurrentFile.cpp_compiler_path}",
+            "command": "python3",
             "args": [
+                "${workspaceFolder}/.vscode/cppruncurrentfile/build_cpp_file.py",
+                "${config:CppRunCurrentFile.compiler_path}",
+                "${config:CppRunCurrentFile.cpp_standard}",
+                "${config:CppRunCurrentFile.optimization_level}",
+                "${config:CppRunCurrentFile.extra_args}",
+                "${config:CppRunCurrentFile.build_directory}",
                 "${file}",
-                "-o",
-                "${config:CppRunCurrentFile.build_directory}/${fileBasenameNoExtension}",
-                "-std=${config:CppRunCurrentFile.cpp_compiler_arg_cpp_standard}",
-                "${config:CppRunCurrentFile.cpp_compiler_arg_optimization_level}",
             ],
             "dependsOn": [
                 "CppRunCurrentFile: Create Build Directory"
