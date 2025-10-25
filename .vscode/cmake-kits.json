@@ -1,9 +1,0 @@
-[
-    {
-        "name": "NVIDIA",
-        "compilers": {
-            "CXX": "nvcc"
-        },
-        "isTrusted": true
-    }
-]

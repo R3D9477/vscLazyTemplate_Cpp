@@ -22,9 +22,6 @@
         "SR-team.vscode-autohide-fork",
         "Blackboxapp.blackbox",
         "jiapeiyao.tab-group",
-        "dacapoday.status-bar-button",
-        // [ CUDA ]
-        "NVIDIA.nsight-vscode-edition",
-        "GrapeCity.gc-excelviewer" // View profiling reports (csv)
+        "dacapoday.status-bar-button"
     ]
 }
